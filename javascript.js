@@ -91,6 +91,37 @@ MyArray.prototype = {
       delete this[this.length];
       return deletedElement;
    },
+
+   unshift: function () {
+      const arrLength = this.length; 
+      const argLength = arguments.length; 
+      for (let i = argLength - 1; i >= 0; i--) { 
+         this[i + arrLength] = this[i]; 
+      }
+      for (let i = 0; i < argLength; i++) {
+         this[i] = arguments[i]; 
+      }
+      return (this.length = arrLength + argLength);
+   },
+
+   filter: function (callback) {
+      const filteredArray = [];
+      for (let i = 0; i < this.length; i++){
+         if (callback(this[i], i, this) ) {
+            filteredArray.push(this[i]);
+         }
+      }
+      return filteredArray;
+   },
+   
+   map: function (callback) {
+      const mappedArray = [];
+      for (let i = 0; i < this.length; i++){
+         mappedArray[i] = callback(this[i], i, this);
+      }
+
+      return mappedArray;
+   },
 }
 
 const arr1 = new MyArray();
@@ -100,7 +131,9 @@ arr1.push(2);
 arr1.push(3);
 arr1.pop();
 arr1.shift();
+arr1.unshift(0);
 console.log(arr1);
+
 
 
 
